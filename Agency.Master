@@ -1,0 +1,140 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Agency.Master.cs" Inherits="travel_agency.Agency" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>ASP.NET</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <style type="text/css">
+           #mainContent {
+              
+           }
+    </style>
+</head>
+
+<body>
+
+    <form id="form1" runat="server">
+        <!--  Block that builds navigation bar-->
+        <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
+            <!-- 	Link to main page 
+				It can be an image or just simple text-->
+            <asp:HyperLink runat="server" class="navbar-brand"
+                NavigateUrl="~/Default.aspx">Home</asp:HyperLink>
+
+            <!--  Button that stacks the navbar vertically if you reduce browser screen width-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collpsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!--  Block with links-->
+            <div class="collapse navbar-collapse justify-content-between" id="collpsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <asp:HyperLink runat="server"
+                            CssClass="nav-link"
+                            NavigateUrl="~/CountryForm.aspx">Countries</asp:HyperLink>
+                    </li>
+                    <li class="nav-item">
+                        <asp:HyperLink runat="server" 
+                            CssClass="nav-link"
+                            NavigateUrl="~/HotelForm.aspx">Hotels</asp:HyperLink>
+                    </li>
+                    <asp:LoginView runat="server">
+                        <LoggedInTemplate>
+                            <li class="nav-item">
+                                <asp:HyperLink runat="server"
+                                    CssClass="nav-link"
+                                    NavigateUrl="~/MakeOrderForm.aspx">Make order</asp:HyperLink>
+                            </li>
+                        </LoggedInTemplate>
+                        <RoleGroups>
+                             <asp:RoleGroup Roles="Supervisor">
+                                 <ContentTemplate>
+                                     <li class="nav-item">
+                                         <asp:HyperLink runat="server"
+                                             CssClass="nav-link"
+                                             NavigateUrl="~/ClientForm.aspx">Clients</asp:HyperLink>
+                                     </li>
+                                     <li class="nav-item">
+                                         <asp:HyperLink runat="server"
+                                             CssClass="nav-link"
+                                             NavigateUrl="~/OrderForm.aspx">Orders</asp:HyperLink>
+                                     </li>
+                                 </ContentTemplate>
+                            </asp:RoleGroup>
+
+                            <asp:RoleGroup Roles="Administrator">
+                                <ContentTemplate>
+                                    <li class="nav-item">
+                                        <asp:HyperLink runat="server"
+                                            CssClass="nav-link"
+                                            NavigateUrl="~/ClientForm.aspx">Clients</asp:HyperLink>
+                                    </li>
+                                    <li class="nav-item">
+                                         <asp:HyperLink runat="server"
+                                             CssClass="nav-link"
+                                             NavigateUrl="~/OrderForm.aspx">Orders</asp:HyperLink>
+                                     </li>
+                                    <!-- Dropdown -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"
+                                            href="#" id="navbardrop"
+                                            data-toggle="dropdown">Accounts and roles management
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <asp:HyperLink runat="server" CssClass="dropdown-item"
+                                                NavigateUrl="~/Membership/CreatingUserAccounts.aspx">Create user account</asp:HyperLink>
+                                            <asp:HyperLink runat="server" CssClass="dropdown-item"
+                                                NavigateUrl="~/RolesManagement/ManageRoles.aspx">Manage Roles</asp:HyperLink>
+                                            <asp:HyperLink runat="server" CssClass="dropdown-item"
+                                                NavigateUrl="~/RolesManagement/UsersAndRoles.aspx">Users and Roles</asp:HyperLink>
+                                        </div>
+                                    </li>
+                                </ContentTemplate>
+                            </asp:RoleGroup>
+                           
+                        </RoleGroups>
+                    </asp:LoginView>
+                </ul>
+                <div class="navbar-nav">
+                    <asp:LoginStatus runat="server" CssClass="nav-item nav-link"
+                        LogoutAction="Redirect" LogoutPageUrl="~/Logout.aspx" />
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid d-flex flex-row-reverse" id="usernamedisplay">
+            <asp:LoginView runat="server">
+                <AnonymousTemplate>
+                    You are viewing this page as guest.
+                </AnonymousTemplate>
+                <LoggedInTemplate>
+                    <p>You are logged in as "<asp:LoginName runat="server" />".</p>
+                </LoggedInTemplate>
+            </asp:LoginView>
+        </div>
+        <div class="container-fluid justify-content-center" id="mainContent">
+            <asp:ContentPlaceHolder ID="Main" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <asp:ContentPlaceHolder ID="footer" runat="server">
+        <!--  Footer. It is attached to bottom of the page -->
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom justify-content-center">
+            <span class="navbar-text">JooJ Team © 2018  All rights reserved.
+            </span>
+        </nav>
+        </asp:ContentPlaceHolder>
+    </form>
+    
+   
+</body>
+</html>
